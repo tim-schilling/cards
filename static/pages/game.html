@@ -1,0 +1,5 @@
+<button class="btn btn-warning btn-sm pull-right" ng-click="events.shuffleClick()">Shuffle</button>
+<button class="btn btn-warning btn-sm pull-right" ng-click="events.flipAllClick(cards)">Flip All</button>
+<div ng-repeat="(index, card) in cards">
+    <div class="card-wrapper" ng-include="card.template"></div>
+</div>

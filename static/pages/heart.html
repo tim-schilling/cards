@@ -1,0 +1,4 @@
+<div ng-model="card" class="card" ng-class="{visible: card.state==CARD_STATES.VISIBLE}" ng-mousedown="events.cardMouseDown(card, $event)" ng-dblclick="events.cardDoubleClick(card, $event)">
+    <span class="card-number">{{ card.card }}</span>
+    <span class="glyphicon glyphicon-heart card-suit"></span>
+</div>
