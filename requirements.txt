@@ -5,10 +5,8 @@ MarkupSafe==0.21
 Werkzeug==0.9.4
 gevent==1.0.1
 gevent-websocket==0.9.3
-git-remote-helpers==0.1.0
 greenlet==0.4.2
 gunicorn==18.0
 itsdangerous==0.24
-numpy==1.7.1
 virtualenv==1.11.2
 wsgiref==0.1.2
