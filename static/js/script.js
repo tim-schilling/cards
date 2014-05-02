@@ -33,7 +33,7 @@
 
   app.controller('gameController', [
     '$scope', function($scope) {
-      var card, cards, suit, _flipped, _i, _j, _len, _len1, _ref, _ref1;
+      var card, cards, socket, suit, _flipped, _i, _j, _len, _len1, _ref, _ref1;
       cards = [];
       _ref = ['heart', 'flame', 'leaf', 'tree'];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -89,7 +89,7 @@
         }
         return _flipped = !_flipped;
       };
-      return $('html').on('mouseup click', function() {
+      $('html').on('mouseup click', function() {
         var currentZ;
         console.log('mouseup');
         if (activeCard !== null) {
@@ -99,6 +99,11 @@
           activeCard.css('z-index', currentZ - MAX_CARD_ZINDEX);
           activeCard = null;
         }
+      });
+      socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+      console.log(socket);
+      return socket.on('my response', function(msg) {
+        return console.log(msg);
       });
     }
   ]);

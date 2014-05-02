@@ -83,6 +83,12 @@ app.controller 'gameController', ['$scope', ($scope) ->
             activeCard.css('z-index', currentZ-MAX_CARD_ZINDEX)
             activeCard = null
         return
+
+    socket = io.connect('http://' + document.domain + ':' + location.port + '/test')
+    console.log socket
+    socket.on 'my response', (msg) ->
+        console.log msg
+
 ]
 app.controller 'cardController', ['$scope', ($scope) ->
 

@@ -1,19 +1,36 @@
+import os
 from flask import Flask
 from flask import render_template
-from werkzeug.contrib.fixers import ProxyFix
-from flask_sockets import Sockets
+from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
-sockets = Sockets(app)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'alskdnf;243f*)N#lkncanw;oi3jaf')
+socketio = SocketIO(app)
+
 
 @app.route('/')
 def game():
     return render_template('game.html')
 
-@sockets.route('/echo')
-def echo_socket(ws):
-    while True:
-        message = ws.receive()
-        ws.send(message)
 
-app.wsgi_app = ProxyFix(app.wsgi_app)
+@socketio.on('my event', namespace='/echo')
+def test_message(message):
+    emit('my response', {'data': message['data']})
+
+
+@socketio.on('my broadcast event', namespace='/echo')
+def test_message(message):
+    emit('my response', {'data': message['data']}, broadcast=True)
+
+
+@socketio.on('connect', namespace='/echo')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+
+@socketio.on('disconnect', namespace='/echo')
+def test_disconnect():
+    print('Client disconnected')
+
+if __name__ == '__main__':
+    socketio.run(app)
